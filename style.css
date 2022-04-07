@@ -1,13 +1,30 @@
 .body{
     background-color: rgb(16, 65, 48);
-}
 
+}
+h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#board{
+display: grid;
+gap: 30px;
+grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr;
+}
 
 
 .card{
-/* background-color: blue; */
+background-color: blue;
+border: 300px; 
+height: 140px;
+width: 100px;
+min-width: 100px;
+margin: auto;
 
 }
+
 .board{
-    flex
+    
+
 }
