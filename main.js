@@ -15,8 +15,9 @@ function shuffle(array) {  //from stackoverflow
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = array[currentIndex];
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
   }
   return array;
 }
