@@ -1,10 +1,27 @@
+let counter = 0;
 const cards = ["A", "B", "C", "A", "B", "C"];
+
+function init() {
+  shuffle(cards);
+  //append cards to board
+  const board = document.getElementById("board");
+  for (i in cards) {
+    const element = createCard(i);
+    board.appendChild(element);
+  }
+}
 
 function createCard(idx) {
   const cardEl = document.createElement("div");
-  cardEl.innerHTML = cards[idx];
+  cardEl.addEventListener('click', (e) => {
+    if(counter < 2){
+      cardEl.innerHTML = cards[idx];
+    }
+    counter++;
+  }) 
   cardEl.id = idx;
   cardEl.className = "card";
+  
   return cardEl;
 }
 
@@ -20,16 +37,6 @@ function shuffle(array) {  //from stackoverflow
         array[randomIndex], array[currentIndex]];
   }
   return array;
-}
-
-function init() {
-  shuffle(cards);
-  //append cards to board
-  const board = document.getElementById("board");
-  for (i in cards) {
-    const element = createCard(i);
-    board.appendChild(element);
-  }
 }
 
 init();
