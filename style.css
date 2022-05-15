@@ -29,8 +29,6 @@ background-color: rgba(255, 127, 80, 0.244);
     border-style: solid;
     border-color: rgb(123, 205, 90);
 
-
- 
 }
 
 .board {
@@ -42,3 +40,6 @@ background-color: rgba(255, 127, 80, 0.244);
     cursor: pointer;
 }
 
+.color{
+  color: blue;
+}
