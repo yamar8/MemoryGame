@@ -1,33 +1,40 @@
 .body {
-  /* background-color: rgb(183, 255, 1); */
-  
+
+}
+.container{
+
+  background: #eaafc8;
+  background: -webkit-linear-gradient(to right, #eaafc8, #654ea3);
+  background: linear-gradient(to right, #eaafc8, #654ea3);
+  min-height: 100vh;
 }
 h1 {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  color:rgba(240, 13, 13, 0.728);
-  text-decoration: underline;
+  color:rgba(240, 13, 13, 0.728); */
+  /* text-decoration: underline; */
 }
-#board {
+/* #board {
 background-color: rgba(255, 127, 80, 0.244);
   display: grid;
   gap: 30px;
   grid-template-columns: 0.5fr 0.5fr 0.5fr;
   padding: 50px;
-}
+} */
 
-.card {
-  background-color: rgba(185, 222, 126, 0.728);
+.col{
+  background-color: rgba(231, 15, 15, 0.728);
   height: 140px;
-  width: 100px;
-  min-width: 100px;
-  margin: auto;
+  width: 140px; 
+  min-width: 140px;
+  max-width: 140px;
+  margin: 5px;
   font-size: 100px;
   text-align: center;
   border-radius: 10px;
     border-style: solid;
-    border-color: rgb(123, 205, 90);
+    border-color: rgb(101, 0, 0);
 
 }
 
@@ -42,4 +49,22 @@ background-color: rgba(255, 127, 80, 0.244);
 
 .color{
   color: blue;
+}
+
+#playerForm{
+  
+
+
+}
+#playerForm h1{
+color: blueviolet;
+
+}
+
+#playerForm h2{
+
+}
+#trun{
+  
+
 }
