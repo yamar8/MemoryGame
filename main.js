@@ -1,14 +1,19 @@
 const body = document.querySelector("body");
-const h1 = document.createElement("h1");
-const NamesDiv = document.createElement("div");
-const boarDiv = document.createElement("div");
+const board = document.querySelector(".container");
 const table = document.querySelector("table");
-h1.id = "title";
-NamesDiv.id = "players";
-// boarDiv.className = "row justify-content-center p-3 p-md-0";
-boarDiv.className = "container";
-body.append(h1, NamesDiv, boarDiv);
+let cardForm = document.getElementById("cardForm");
+let h2 = document.querySelector("#NumOfCards");
+let numOfCards = document.querySelector("#numOfCards");
+let button = document.querySelector("#verify");
+numOfCards.style.display = "none";
+button.style.display = "none"
+table.style.display = "none"; // hide the table element
 
+//arrays:
+const cards = [];
+let openCards = [];
+let tempOpenCards = [];
+let players = [];
 let emojiArray = [
   "✌",
   "😂",
@@ -104,28 +109,18 @@ let emojiArray = [
   "💚",
 ];
 
-const cards = [];
-let openCards = [];
-let tempOpenCards = [];
-let isOpenCounter = 0;
-let className = "color";
+let counter = 0; // run on the players array
 
-let counter = 0;
-let target = null;
-let numOfPlayers = 0;
-gameStart();
+initGame();
 
-const playersDiv = document.querySelector(".table");
 
-let players = [];
-let turn = 0;
+function initGame() {
 
-function gameStart() {
-  table.style.display = "none";
   let ButtonEl = document.getElementById("VerifyPlayers");
-  let numOfPlayersEl = document.getElementById("numPlayers");
+  let playerInput = document.getElementById("playerInput");
+  
   ButtonEl.addEventListener("click", () => {
-    for (let i = 0; i < numOfPlayersEl.value; i++) {
+    for (let i = 0; i < playerInput.value; i++) {
       players.push(createPlayer("Player " + i, 0));
     }
     if (players.length > 0) {
@@ -155,20 +150,12 @@ function gameStart() {
   });
 }
 
-function chooseCards() {
-  let cardForm = document.getElementById("cardForm");
-  let h2 = document.createElement("h2");
-  cardForm.append(h2);
-  h2.innerText = "Please choose the number of Cards: (max 92)";
-  let numOfCards = document.createElement("input");
-  let button = document.createElement("input");
-  cardForm.append(numOfCards, button);
-  numOfCards.id = "numOfCards";
-  numOfCards.type = "text";
-  button.id = id = "verify";
-  button.type = "button";
-  button.value = "Submit";
 
+function chooseCards() {
+  numOfCards.style.display = "";
+  button.style.display = ""
+
+  h2.innerText = "Please choose the number of Cards: (max 92)";
   button.addEventListener("click", (e) => {
     if(numOfCards.value>92){
       return;
@@ -179,12 +166,13 @@ function chooseCards() {
       cards.push(createCard(emojiArray[i]));
     }
     cardForm.innerHTML = "";
-    init();
+    initCards();
   });
 }
 
-function initPlayers() {
-  table.style.display = "";
+function initPlayersTable() {
+  board.parentNode.removeChild(board); // remove the board
+  table.style.display = ""; //show table
   let sortedPlayers = players.sort(
     (a, b) => parseFloat(b.score) - parseFloat(a.score)
   );
@@ -201,15 +189,13 @@ function createPlayerElement(id) {
   <td>${players[id].name.split(" ")[0]}</td>
   <td>${players[id].name.split(" ")[1]}</td>
   <td>${players[id].score}</td>`;
-  // playerEl.innerHTML = `Name: ${players[id].name}, Score: ${players[id].score}`;
   return playerEl;
 }
 
-function createPlayer(name, score, className = "") {
+function createPlayer(name, score) {
   return {
     name: name,
     score: score,
-    className: className,
   };
 }
 function createCard(value) {
@@ -227,68 +213,72 @@ function createCard(value) {
   };
 }
 
-function init() {
+function initCards() {
   shuffle(cards);
   const row = document.createElement("div");
   // row.className = "cards col-9 col-md-5 col-lg-2";
   row.className = "row";
-  boarDiv.append(row);
+  board.append(row);
   const turn = document.getElementById("turn");
   for (i in cards) {
     const element = createCardEl(i);
     cards[i].element = element;
     // debugger;
     turn.innerText = players[counter].name;
-    cards[i].element.addEventListener("click", (e) => {
-      if(tempOpenCards.length == 2){ //prevent third click
-        return;    
-      }
-      for (v of cards) {
-        if (e.target.isSameNode(v.element)) {
-          //find the clicked element in the array
-          if (v.isOpen == true) {
-            //prevent from user to click on card twice
-            return;
-          }
-          v.revealCard();
-          tempOpenCards.push(v);
-          // e.target.style.transform = "rotateY(180deg)";
-
-          // if two cards are open
-          if (tempOpenCards.length == 2) {
-            //if two cards are equal
-            if (tempOpenCards[0].value == tempOpenCards[1].value) {
-              openCards.push(tempOpenCards[0], tempOpenCards[1]);
-              players[counter].score += 1;
-              tempOpenCards = [];
-            } else {
-              //if two cards are open but not equal
-              counter++; // move to next player
-              if (counter == players.length) {
-                counter = 0;
-              }
-              turn.innerText = players[counter].name;
-
-              setTimeout(() => {
-                tempOpenCards[0].hideCard();
-                tempOpenCards[1].hideCard();
-                tempOpenCards = [];
-              }, 1100);
-            }
-          } else {
-            //one card is open
-          }
-        }
-      }
-      if (cards.length == openCards.length) {
-        console.log("game is finished");
-        boarDiv.innerHTML = "";
-        initPlayers();
-      }
-    });
+    cards[i].element.addEventListener("click", CardclickHandler);
     row.append(element);
   }
 }
+
+
+const CardclickHandler = (e)=>{
+  if(tempOpenCards.length == 2){ //prevent third click
+    return;    
+  }
+  for (v of cards) {
+    if (e.target.isSameNode(v.element)) {
+      //find the clicked element in the array
+      if (v.isOpen == true) {
+        //prevent from user to click on card twice
+        return;
+      }
+      v.revealCard();
+      tempOpenCards.push(v);
+      // e.target.style.transform = "rotateY(180deg)";
+
+      // if two cards are open
+      if (tempOpenCards.length == 2) {
+        //if two cards are equal
+        if (tempOpenCards[0].value == tempOpenCards[1].value) {
+          openCards.push(tempOpenCards[0], tempOpenCards[1]);
+          players[counter].score += 1;
+          tempOpenCards = [];
+        } else {
+          //if two cards are open but not equal
+          counter++; // move to next player
+          if (counter == players.length) {
+            counter = 0;
+          }
+          turn.innerText = players[counter].name;
+
+          setTimeout(() => {
+            tempOpenCards[0].hideCard();
+            tempOpenCards[1].hideCard();
+            tempOpenCards = [];
+          }, 1100);
+        }
+      } else {
+        //one card is open
+      }
+    }
+  }
+  if (cards.length == openCards.length) {
+    console.log("game is finished");
+    board.innerHTML = "";
+    initPlayersTable();
+  }
+}
+
 
 function createCardEl(idx) {
   const cardEl = document.createElement("div");
