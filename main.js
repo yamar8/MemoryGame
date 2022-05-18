@@ -159,7 +159,7 @@ function chooseCards() {
   let cardForm = document.getElementById("cardForm");
   let h2 = document.createElement("h2");
   cardForm.append(h2);
-  h2.innerText = "Please choose the number of Cards:";
+  h2.innerText = "Please choose the number of Cards: (max 92)";
   let numOfCards = document.createElement("input");
   let button = document.createElement("input");
   cardForm.append(numOfCards, button);
@@ -169,7 +169,10 @@ function chooseCards() {
   button.type = "button";
   button.value = "Submit";
 
-  button.addEventListener("click", () => {
+  button.addEventListener("click", (e) => {
+    if(numOfCards.value>92){
+      return;
+    }
     shuffle(emojiArray);
     for (let i = 0; i < numOfCards.value; i++) {
       cards.push(createCard(emojiArray[i]));
@@ -194,7 +197,7 @@ function initPlayers() {
 
 function createPlayerElement(id) {
   const playerEl = document.createElement("tr");
-  playerEl.innerHTML = `<th scope="row">${++id}</th> 
+  playerEl.innerHTML = `<th scope="row">${id}</th> 
   <td>${players[id].name.split(" ")[0]}</td>
   <td>${players[id].name.split(" ")[1]}</td>
   <td>${players[id].score}</td>`;
