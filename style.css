@@ -1,7 +1,7 @@
 .body {
 
 }
-.container{
+#board{
 
   background: #eaafc8;
   background: -webkit-linear-gradient(to right, #eaafc8, #654ea3);
@@ -23,7 +23,7 @@ background-color: rgba(255, 127, 80, 0.244);
   padding: 50px;
 } */
 
-.col{
+.cards{
   background-color: rgba(231, 15, 15, 0.728);
   height: 140px;
   width: 140px; 
@@ -42,8 +42,8 @@ background-color: rgba(255, 127, 80, 0.244);
 }
 
 
- .card:hover {
-    background-color: rgb(123, 205, 90);
+ .cards:hover {
+    background-color: rgb(255, 171, 171);
     cursor: pointer;
 }
 

@@ -24,15 +24,14 @@
       <button id="NewGame" type="button" class="btn btn-secondary">New Game</button>  
       <div>
         <h1>Turn of:</h1>
-        <h1 id="turn"></h1>
+        <h1 id="turnOf"></h1>
        
     </div>
       </nav>
       
-    <form class="p-3 mb-2 bg-light text-dark" id="playerForm">
+    <form id="playerForm">
       <div class="firstScreen">
         <h1 class="display-1">Welcome to the game!</h1>
-       
         <h2>Please choose the number of players:</h2>
         <input class="form-control" placeholder="Number of players" id="playerInput" type="text" />
         <input class="btn btn-primary" id="VerifyPlayers" type="button" value="Submit" />
@@ -46,7 +45,17 @@
 
     <div class="NameList"></div>
 
-<div class = "container"></div>
+<div id="board">
+<div id= "row" class = "row justify-content-center p-3 p-md-0">
+</div>
+<!-- <div id="board" class = "container">
+<div id= "row" class = "row"></div> -->
+
+</div>
+
+
+
+
 <!-- game result -->
     <table class="table">
         <thead>
