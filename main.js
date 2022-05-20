@@ -1,4 +1,4 @@
-const boardEl = document.querySelector(".container");
+const boardEl = document.querySelector("#board");
 const tableEl = document.querySelector("table");
 const cardFormEl = document.getElementById("cardForm");
 const h2El = document.querySelector("#NumOfCards");
