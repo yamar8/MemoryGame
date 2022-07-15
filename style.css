@@ -7,31 +7,37 @@ html {
 display: flex;
 height:100%;
 }
-#namesInput,#buttonNamesInput{
-  width: 80%;
-  margin:10px;
-  align-self: center;
-}
+
 #numOfPlayers {
   text-align:center;
 }
-#playerInput ,#VerifyPlayers{
-width: 50%;
-margin: 10px;
-align-self: center;
-}
+
 .firstScreen{
   display: flex;
   justify-content: center;
   height:100%;
   flex-direction: column;
-  width: 80%;
   font-size: larger;
   font-weight: bold;
   text-align: center;
+  margin-top: 40px;
+  padding: 10px;
 }
 
-#board ,#row{
+#cardForm-div{
+  display: flex;
+  justify-content: center;
+  height:100%;
+  flex-direction: column;
+  font-size: larger;
+  font-weight: bold;
+  text-align: center;
+  background-color: rgba(123, 106, 199, 0.53);
+  padding: 20px;
+}
+
+
+#board{
  justify-content: center;
   display: flex;
   flex-wrap:wrap;
@@ -40,7 +46,7 @@ align-self: center;
   /* min-height: 100vh; */
   overflow:auto;
   background-color: rgba(123, 106, 199, 0.53);
-
+  padding-top: 10px;
 }
 
 .card{
@@ -59,29 +65,6 @@ align-self: center;
   margin: 5px;
 
 }
-h1 {
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  color:rgba(240, 13, 13, 0.728); */
-  /* text-decoration: underline; */
-}
-.display-1{
-}
-
-.input{
-
-
-}
-
- .card:hover {
-    background-color: rgb(255, 171, 171);
-    cursor: pointer;
-}
-
-.color{
-  color: blue;
-}
 
 #playerForm{
 display: flex;  
@@ -92,32 +75,16 @@ background: linear-gradient(to right, #eaafc8, #654ea3);
 min-height: 100vh;
 /* min-height: 100%; */
 height: 100%;
+
 }
 #playerForm h1{
 color: rgb(43, 156, 226);
 font-size: 50px;
 text-align: center;
 }
-#cardForm{
-  background-color: rgba(123, 106, 199, 0.53);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-}
 
 #playerForm h2{
 
-}
-#trun{
-
-}
-
-#numOfCards,#verify{
-  width: 50%;
-  align-self: center;
-  margin:10px;
 }
 
 #turnOF{
@@ -148,4 +115,25 @@ font-family: "Times New Roman", Times, serif;
   display: inline-block;
   font-size: 16px;
   border-radius: 15px;
+  width: 50%;
+ align-self: center;
+
+}
+
+.inputStyle{
+  padding: 12px 20px;
+  box-sizing: border-box;
+  width: 50%;
+  align-self: center;
+  margin:10px;
+  border: 2px solid rgb(11, 55, 197);
+}
+
+.winner-style{
+  background-color: yellow !important;
+  font-weight: bolder;
+}
+
+.open-card-style{
+  opacity: 0.7;
 }

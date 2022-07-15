@@ -6,9 +6,11 @@ const h2El = document.querySelector("#NumOfCards");
 const numOfCardsEl = document.querySelector("#numOfCards");
 const buttonEl = document.querySelector("#verify");
 const turnOfEl = document.getElementById("turnOfName");
+const turnOfContainerEl = document.getElementById("turnOfContainer");
 numOfCardsEl.style.display = "none";
 buttonEl.style.display = "none"
 tableEl.style.display = "none"; // hide the table element
+turnOfContainerEl.style.display = "none";
 
 //arrays:
 const cards = [];
@@ -125,7 +127,7 @@ let activity = [ "⚽️", "🏀", "🏈", "⚾️", "🎾", "🏐", "🏉", "�
 ];
 */
 let counter = 0; // iterate on the players' array
-const pairOfCards = 30;
+const MAXCARDS = 30;
 
 initGame();
 
@@ -141,11 +143,11 @@ function initGame() {
     }
     if (players.length > 0) {
       let firstScreenEl = document.querySelector(".firstScreen");
-      firstScreenEl.innerHTML = "Names of the players: (separated by a comma ',') ";
+      firstScreenEl.innerHTML = "<h2>Names of the players: (separated by a comma ',')</h2>";
       let playerNamesEl = document.createElement("input");
       playerNamesEl.setAttribute("type", "text");
       playerNamesEl.id = "namesInput";
-      playerNamesEl.class = "btn btn-primary";
+      playerNamesEl.className = "inputStyle";
       let buttonEl = document.createElement("button");
       buttonEl.id = "buttonNamesInput";
       buttonEl.className = "buttonStyle";
@@ -173,9 +175,9 @@ function chooseCards() {
   numOfCardsEl.style.display = "";
   buttonEl.style.display = ""
 
-  h2El.innerText =`How many pair of cards? (max ${pairOfCards})`;
+  h2El.innerText =`Number of cards: (in pairs) (max ${MAXCARDS})`;
   buttonEl.addEventListener("click", (e) => {
-    if(numOfCardsEl.value>pairOfCards){
+    if(numOfCardsEl.value>MAXCARDS){
       return;
     }
     shuffle(emojiArray);
@@ -184,6 +186,7 @@ function chooseCards() {
       cards.push(createCard(emojiArray[i]));
     }
     cardFormEl.innerHTML = "";
+    turnOfContainerEl.style.display = "";
     initCards();
   });
 }
@@ -200,6 +203,8 @@ function initPlayersTable() {
     const element = createPlayerElement(i);
     tbody.append(element);
   }
+  turnOfContainerEl.innerHTML = `Winner: ${players[0].name}` // show the winner
+  turnOfContainerEl.className = "winner-style";
 }
 
 function createPlayerElement(id) {
@@ -237,7 +242,7 @@ function createCard(value) {
 
 function initCards() {
   shuffle(cards);
-  const rowEl = document.querySelector("#row");
+  const rowEl = document.querySelector("#board");
   for (i in cards) {
     const element = createCardEl(i);
     cards[i].element = element;
@@ -268,6 +273,8 @@ const CardclickHandler = (e)=>{
       if (tempOpenCards.length == 2) {
         //if two cards are equal
         if (tempOpenCards[0].value == tempOpenCards[1].value) {
+          tempOpenCards[0].element.className += " open-card-style";
+          tempOpenCards[1].element.className += " open-card-style";
           openCards.push(tempOpenCards[0], tempOpenCards[1]);
           players[counter].score += 1;
           tempOpenCards = [];
