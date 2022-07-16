@@ -102,7 +102,6 @@ font-family: "Times New Roman", Times, serif;
   display: flex;
   border-radius: 15px;
   padding:8px ;
-
 }
 
 .buttonStyle{
@@ -136,4 +135,27 @@ font-family: "Times New Roman", Times, serif;
 
 .open-card-style{
   opacity: 0.7;
+}
+
+#finish-game,#NewGame{
+  background-color: #1aa135; /* Green */
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 15px;
+  margin: 8px;
+}
+#finish-game{
+  background-color: #ff0000 !important;
+}
+
+.nav{
+  display: flex;
+  justify-content: space-between;
+  background-color: rebeccapurple;
+  padding: 5px;
 }

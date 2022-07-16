@@ -20,22 +20,24 @@
     />
   </head>
   <body>
-    <nav class="navbar navbar-dark bg-primary">
+    <!-- <nav class="navbar navbar-dark bg-primary"> -->
+    <nav class="nav">
       <div id="turnOfContainer">
         <h3 id="turnOf">Turn of:</h3>
         <h3 id="turnOfName"></h3>
       </div>
-      <button id="NewGame" type="button" class="btn btn-secondary">New Game</button>  
+      <button id="NewGame" type="button">New Game</button> 
+      <button id="finish-game">X</button> 
       </nav>
       
       <!-- game result -->
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Place</th>
+          <th scope="col">Rank</th>
           <th scope="col">Name</th>
           <th scope="col">Time(soon)</th>
-          <th scope="col">Points</th>
+          <th scope="col">Score</th>
         </tr>
       </thead>
       <tbody>
@@ -56,7 +58,7 @@
       <div id="cardForm-div">
       <h2 id="NumOfCards"> </h2>
       <input class = "inputStyle" id="numOfCards" type="number">
-      <input class = "buttonStyle" type = "button" id = "verify" value = "Submit">
+      <input class = "buttonStyle" type = "button" id = "verify" value = "Play!">
     </div>
     </form>
 
