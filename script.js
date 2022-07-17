@@ -10,7 +10,7 @@ const turnOfContainerEl = document.getElementById("turnOfContainer");
 const finishGameButton = document.getElementById("finish-game");
 finishGameButton.style.display = "none";
 numOfCardsEl.style.display = "none";
-buttonEl.style.display = "none"
+buttonEl.style.display = "none";
 tableEl.style.display = "none"; // hide the table element
 turnOfContainerEl.style.display = "none";
 
@@ -1520,26 +1520,24 @@ const emojiArray = [
   "🏴󠁧󠁢󠁷󠁬󠁳󠁿",
 ];
 
-
 let counter = 0; // iterate on the players' array
 const MAXCARDS = 30;
 let gameIsFinished = false;
 
 initGame();
 
-
 function initGame() {
-
   let ButtonEl = document.getElementById("VerifyPlayers");
   let playerInputEl = document.getElementById("playerInput");
-  
+
   ButtonEl.addEventListener("click", () => {
     for (let i = 0; i < playerInputEl.value; i++) {
       players.push(createPlayer("Player " + i, 0));
     }
     if (players.length > 0) {
       let firstScreenEl = document.querySelector(".firstScreen");
-      firstScreenEl.innerHTML = "<h2>Names of the players: (separated by a comma ',')</h2>";
+      firstScreenEl.innerHTML =
+        "<h2>Names of the players: (separated by a comma ',')</h2>";
       let playerNamesEl = document.createElement("input");
       playerNamesEl.setAttribute("type", "text");
       playerNamesEl.id = "namesInput";
@@ -1566,14 +1564,13 @@ function initGame() {
   });
 }
 
-
 function chooseCards() {
   numOfCardsEl.style.display = "";
-  buttonEl.style.display = ""
+  buttonEl.style.display = "";
 
-  h2El.innerText =`Number of cards: (in pairs) (max ${MAXCARDS})`;
+  h2El.innerText = `Number of cards: (in pairs) (max ${MAXCARDS})`;
   buttonEl.addEventListener("click", (e) => {
-    if(numOfCardsEl.value>MAXCARDS){
+    if (numOfCardsEl.value > MAXCARDS) {
       return;
     }
     shuffle(emojiArray);
@@ -1599,13 +1596,13 @@ function initPlayersTable() {
     const element = createPlayerElement(i);
     tbody.append(element);
   }
-  turnOfContainerEl.innerHTML = `Winner: ${players[0].name}` // show the winner
+  turnOfContainerEl.innerHTML = `Winner: ${players[0].name}`; // show the winner
   turnOfContainerEl.className = "winner-style";
 }
 
 function createPlayerElement(id) {
   const playerEl = document.createElement("tr");
-  let place = Number(id)+1; //in order to start from one and not from zero
+  let place = Number(id) + 1; //in order to start from one and not from zero
   console.log(place);
   playerEl.innerHTML = `<th scope="row">${place}</th> 
   <td>${players[id].name}</td>
@@ -1613,7 +1610,6 @@ function createPlayerElement(id) {
   <td>${players[id].score}</td>`;
   return playerEl;
 }
-
 
 function createPlayer(name, score) {
   return {
@@ -1647,19 +1643,20 @@ function initCards() {
     cards[i].element.addEventListener("click", CardclickHandler);
     rowEl.append(element);
   }
+  shuffleDiv();
 }
 
-
-const CardclickHandler = (e)=>{
-  if(tempOpenCards.length == 2){ //prevent third click
-    return;    
+const CardclickHandler = (e) => {
+  if (tempOpenCards.length == 2) {
+    //prevent third click
+    return;
   }
   for (v of cards) {
     if (e.target.isSameNode(v.element)) {
       //find the clicked element in the array
-      
+
       if (v.isOpen == true) {
-        //prevent from user to click on card twice
+        //prevent from user to click on same card twice
         return;
       }
       v.revealCard();
@@ -1697,20 +1694,19 @@ const CardclickHandler = (e)=>{
   if (cards.length == openCards.length) {
     gameIsFinished = true;
     console.log("game is finished");
-    cards.forEach(e => {
-      e.element.classList.remove("open-card-style");;
+    cards.forEach((e) => {
+      e.element.classList.remove("open-card-style");
     });
     // boardEl.innerHTML = "";
     initPlayersTable();
   }
-}
-
+};
 
 function createCardEl(idx) {
   const cardEl = document.createElement("div");
   cardEl.id = idx;
   // cardEl.className = "cards col-1 col-md-5 col-lg-2"; //col
-   cardEl.className = "card"; //col
+  cardEl.className = "card"; //col
   return cardEl;
 }
 
@@ -1732,21 +1728,33 @@ function shuffle(array) {
   return array;
 }
 
-function resign(){
-  cards.forEach(e => {
+function resign() {
+  cards.forEach((e) => {
     e.revealCard();
   });
   initPlayersTable();
 }
 
 const newGamebutton = document.getElementById("NewGame");
-newGamebutton.addEventListener("click",()=>{
+newGamebutton.addEventListener("click", () => {
   location.reload();
 });
 
+finishGameButton.addEventListener(
+  "click",
+  () => {
+    if (gameIsFinished) return;
+    resign();
+  },
+  { once: true }
+);
 
-finishGameButton.addEventListener("click",()=>{
-  if(gameIsFinished) return;
-  resign();
-},{once : true})
-
+function shuffleDiv() {
+  for (let i = 0; i < cards.length*2; i++) {
+    let x = Math.floor(Math.random() * cards.length);
+    let cardX = document.getElementById(String(x));
+    let y = Math.floor(Math.random() * cards.length);
+    let cardY = document.getElementById(String(y));
+    cardY.after(cardX);
+  }
+}
